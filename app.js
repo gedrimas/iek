@@ -1,10 +1,12 @@
+
+
 var express = require("express");
 var bodyParser = require("body-parser");
 
-//var uri = 'mongodb://localhost:27017/';
+var uri = 'mongodb://localhost:27017/';
 
 var MongoClient = require('mongodb').MongoClient;
-var uri = "mongodb://Tomged:slonopotam15@cluster0-shard-00-00-zoyjb.mongodb.net:27017,cluster0-shard-00-01-zoyjb.mongodb.net:27017,cluster0-shard-00-02-zoyjb.mongodb.net:27017/iekdb?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true";
+//var uri = "mongodb://Tomged:slonopotam15@cluster0-shard-00-00-zoyjb.mongodb.net:27017,cluster0-shard-00-01-zoyjb.mongodb.net:27017,cluster0-shard-00-02-zoyjb.mongodb.net:27017/iekdb?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true";
 /*MongoClient.connect(uri, function(err, db) {
     db.close();
 });*/
