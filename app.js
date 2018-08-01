@@ -18,6 +18,8 @@ var MongoClient = require('mongodb').MongoClient;
 var app = express();
 var jsonParser = bodyParser.json();
 
+app.set('port', (process.env.PORT || 5000));
+
 app.use(express.static(__dirname + "/public"));
 
 app.post("/feature", jsonParser, function (req, res) {
@@ -43,6 +45,6 @@ MongoClient.connect(uri, { useNewUrlParser: true }, function(err, client){
 
 });
 
-app.listen(5000, function(){
+app.listen(app.get('port'), function(){
     console.log("connect...");
 });
