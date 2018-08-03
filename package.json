@@ -1,6 +1,6 @@
 {
   "name": "iek",
-  "version": "1.1.0",
+  "version": "2.0.0",
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
