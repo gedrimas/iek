@@ -60,7 +60,7 @@
                             <span class="glyphicon glyphicon-search"></span>  Найти</button>
                     </div>
                     <div class="btn-group">
-                        <a id="reset" class="btn btn-sm btn-danger">
+                        <a class="btn btn-sm btn-danger">
                             <span class="glyphicon glyphicon-remove"></span>  Очистить</a>
                     </div>
                 </div>
@@ -108,7 +108,7 @@
                             <span class="glyphicon glyphicon-search"></span>  Найти</button>
                     </div>
                     <div class="btn-group">
-                        <a id="reset" class="btn btn-sm btn-danger">
+                        <a class="btn btn-sm btn-danger">
                             <span class="glyphicon glyphicon-remove"></span>  Очистить</a>
                     </div>
                 </div>
@@ -157,7 +157,7 @@
 
     });
 
-    $("#reset").on("click", function(){
+    $("form a").on("click", function(){
         reset();
         cleartable();
     });
