@@ -1,14 +1,15 @@
 
-module.exports = class Search {
-    constructor(data){
-        this.current = data.cur;
-        this.pole = data.pol;
-        this.feature = data.fe;
-        this.collectionType = data.form;
-    }
+module.exports = function Search(data) {
 
-    getReg(){
-        switch(this.collectionType){
+    this.current = data.cur;
+    this.pole = data.pol;
+    this.feature = data.fe;
+    this.collectionType = data.form;
+
+
+    this.getReg = function()
+    {
+        switch (this.collectionType) {
             case 'price':
                 return new RegExp(`\\s${this.pole}Р.*\\s${this.current}А.*${this.feature}`);
                 break;
@@ -17,7 +18,9 @@ module.exports = class Search {
         }
     }
 
-    getCollection(){
+    this.getCollection = function()
+    {
         return this.collectionType;
+
     }
 }

@@ -8,6 +8,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-progressbar/0.9.0/bootstrap-progressbar.min.js"></script>
+
 </head>
 <body  class="container text-center">
 
@@ -60,7 +62,7 @@
                             <span class="glyphicon glyphicon-search"></span>  Найти</button>
                     </div>
                     <div class="btn-group">
-                        <a id="reset" class="btn btn-sm btn-danger">
+                        <a class="btn btn-sm btn-danger">
                             <span class="glyphicon glyphicon-remove"></span>  Очистить</a>
                     </div>
                 </div>
@@ -108,7 +110,7 @@
                             <span class="glyphicon glyphicon-search"></span>  Найти</button>
                     </div>
                     <div class="btn-group">
-                        <a id="reset" class="btn btn-sm btn-danger">
+                        <a class="btn btn-sm btn-danger">
                             <span class="glyphicon glyphicon-remove"></span>  Очистить</a>
                     </div>
                 </div>
@@ -118,6 +120,11 @@
     </div>
 </div>
 
+<div style="height: 20px">
+    <div class="progress progress-striped active" style="height: 5px; display: none" id="progressBar">
+        <div class="progress-bar progress-bar-info" role="progressbar" data-transitiongoal="100"></div>
+    </div>
+</div>
 
 <table class="table table-condensed table-striped">
     <thead><tr><th class="text-center">Артикул</th><th class="text-center">Наименование</th><th class="text-center">Стоимость</th></tr></thead>
@@ -125,6 +132,13 @@
     </tbody>
 </table>
 <script>
+
+    function progressBar() {
+        $('.progress .progress-bar').progressbar();
+        $('#progressBar').toggle();
+    }
+
+
     function CreateUser(current, pole, feature, formID) {
         $.ajax({
             url: "feature",
@@ -137,6 +151,8 @@
                 form: formID
             }),
             success: function (itm) {
+
+                $('#progressBar').toggle();
 
                 var rows = "";
                 $.each(itm, function(indexs, itms){
@@ -155,9 +171,11 @@
         var feature = this.elements["feature"].value;
         CreateUser(current, pole, feature, formID);
 
+        progressBar();
+
     });
 
-    $("#reset").on("click", function(){
+    $("form a").on("click", function(){
         reset();
         cleartable();
     });
