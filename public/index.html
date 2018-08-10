@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Bootstrap Example</title>
+    <title>Breackers</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -26,6 +26,13 @@
             <form id="price">
                 <input type="hidden" name="id" value="0" />
                 <div class="form-group">
+                    <div class="moduleBreakers">
+                        <label class="radio-inline"><input type="radio" name="moduleBreakers" value="47-29">Авт. выключатель ВА47-29</label>
+                        <label class="radio-inline"><input type="radio" name="moduleBreakers" value="47-29М">Авт. выключатель ВА47-29М</label><br>
+                        <label class="radio-inline"><input type="radio" name="moduleBreakers" value="47-60">Авт. выключатель ВА47-60</label>
+                        <label class="radio-inline"><input type="radio" name="moduleBreakers" value="47-100">Авт. выключатель ВА47-100</label>
+                    </div><br>
+
                     <div class="current">
                         <label class="radio-inline"><input type="radio" name="current" value="1">1 ампер</label>
                         <label class="radio-inline"><input type="radio" name="current" value="2">2 ампера</label>
@@ -43,6 +50,8 @@
                         <label class="radio-inline"><input type="radio" name="current" value="40">40 ампер</label>
                         <label class="radio-inline"><input type="radio" name="current" value="50">50 ампер</label>
                         <label class="radio-inline"><input type="radio" name="current" value="63">63 ампера</label>
+                        <label class="radio-inline"><input type="radio" name="current" value="80">80 ампер</label>
+                        <label class="radio-inline"><input type="radio" name="current" value="100">100 ампер</label>
                     </div><br>
                     <div class="pole">
                         <label class="radio-inline"><input type="radio" name="pole" value="1">1 полюс</label>
@@ -74,6 +83,13 @@
             <form id="abb">
                 <input type="hidden" name="id" value="0" />
                 <div class="form-group">
+                    <div class="moduleBreakers">
+                        <label class="radio-inline"><input type="radio" name="moduleBreakers" value="47-29">Авт. выключатель S200</label>
+                        <label class="radio-inline"><input type="radio" name="moduleBreakers" value="47-29М">Авт. выключатель S200</label><br>
+                        <label class="radio-inline"><input type="radio" name="moduleBreakers" value="47-60">Авт. выключатель S200</label>
+                        <label class="radio-inline"><input type="radio" name="moduleBreakers" value="47-100">Авт. выключатель S200</label>
+                    </div><br>
+
                     <div class="current">
                         <label class="radio-inline"><input type="radio" name="current" value="1">1 ампер</label>
                         <label class="radio-inline"><input type="radio" name="current" value="2">2 ампера</label>
@@ -139,7 +155,7 @@
     }
 
 
-    function CreateUser(current, pole, feature, formID) {
+    function CreateUser(moduleBreakers, current, pole, feature, formID) {
         $.ajax({
             url: "feature",
             contentType: "application/json",
@@ -148,9 +164,14 @@
                 cur: current,
                 pol: pole,
                 fe: feature,
-                form: formID
+                form: formID,
+                modulebraker: moduleBreakers
             }),
             success: function (itm) {
+
+                if(itm.length == 0){
+                    message();
+                }
 
                 $('#progressBar').toggle();
 
@@ -163,13 +184,26 @@
         })
     }
 
+    function message(){
+        var wornMessage = [];
+        $("form").find('input').each(function(index, elem) {
+            if(this.checked){
+                wornMessage += elem.parentElement.textContent + "\n";
+            }
+        });
+        wornMessage += 'ДАННАЯ КОНФИГУРАЦИЯ ОТСУТСТВУЕТ В ЛИНЕЙКЕ ПРОИЗВОДИТЕЛЯ.\nИЗМЕНИТЕ КРИТЕРИИ ОТБОРА.'
+        alert(wornMessage);
+    }
+
+
     $("form").submit(function (e) {
         e.preventDefault();
         var formID = this.getAttribute('id');
         var current = this.elements["current"].value;
         var pole = this.elements["pole"].value;
         var feature = this.elements["feature"].value;
-        CreateUser(current, pole, feature, formID);
+        var moduleBreaker = this.elements["moduleBreakers"].value;
+        CreateUser(moduleBreaker, current, pole, feature, formID);
 
         progressBar();
 
@@ -181,9 +215,10 @@
     });
 
     function reset() {
-        var form = document.querySelector('form');
-        form.reset();
-        form.elements["id"].value = 0;
+        var forms = document.getElementsByTagName('form');
+        for(var i = 0; i < forms.length; i++) {
+            forms[i].reset();
+        }
     }
 
     function cleartable(){
